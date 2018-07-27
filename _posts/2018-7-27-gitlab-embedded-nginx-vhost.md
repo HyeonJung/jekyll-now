@@ -66,7 +66,7 @@ server
 ```
 [root@gitlab conf]# vi nginx.conf
 ```
-6. 파일 하단에 추가한 설정파일 include (nginx-status.conf 하단에)
+6. 파일 하단에 추가한 설정파일 include (nginx-status.conf 하단에)  
 ```
 include /var/opt/gitlab/nginx/conf/gitlab-http.conf;
 include /var/opt/gitlab/nginx/conf/nginx-status.conf;
