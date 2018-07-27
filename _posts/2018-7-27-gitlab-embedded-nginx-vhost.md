@@ -16,46 +16,36 @@ title: GitLab Nginx에 vhost 설정하기
 ## html 폴더 생성
 
 1. /var/www 경로로 이동하여 디렉터리를 생성한다.
-
 ```
 [root@gitlab www]# cd /var/www
 [root@gitlab www]# mkdir homepage
 ```
 
 2. 생성한 디렉터리 내부에 logs와 public_html 디렉터리를 생성한다.
-
 ```
 [root@gitlab www]# mkdir logs
 [root@gitlab www]# mkdir public_html
 ```
-
 3. public_html 폴더에 기존 사이트의 파일들을 이동
 
 ## vhost 설정
 
 1. GitLab에 내장된 Nginx의 설정을 수정해야 하기때문에 해당 경로로 이동
-
 ```
 [root@gitlab ~]# cd /var/opt/gitlab/nginx/conf
 ```
-
 2. 해당 경로의 파일 목록을 보면 아래와 같은 설정파일들이 있는 것을 확인 할 수 있다.
-
 ```
 [root@gitlab conf]# ll
 -rw-r--r--. 1 root root 4504 Jul  5 17:53 gitlab-http.conf
 -rw-r--r--. 1 root root 1496 Jul  5 17:44 nginx.conf
 -rw-r--r--. 1 root root  201 May 11  2017 nginx-status.conf
 ```
-
 3. vhost 설정을 위해 설정 파일 하나를 추가
-
 ```
 [root@gitlab conf]# vi homepage-http.conf
 ```
-
 4. 아래와 같이 작성
-
 ```
 server
 {
@@ -68,30 +58,22 @@ server
         root    /var/www/homepage/public_html;
 }
 ```
-
 - server_name : server_name으로 입력한 도메인으로 접속했을 때, 경로로 설정한 html을 보여줌
 - access_log : access_log가 저장되는 위치
 - error_log : error_log가 저장되는 위치
 - root : html파일이 위치한 경로
-
 5. nginx 설정 수정
-
 ```
 [root@gitlab conf]# vi nginx.conf
 ```
-
 6. 파일 하단에 추가한 설정파일 include (nginx-status.conf 하단에)
-
 ```
 include /var/opt/gitlab/nginx/conf/gitlab-http.conf;
 include /var/opt/gitlab/nginx/conf/nginx-status.conf;
 
-
 include /var/opt/gitlab/nginx/conf/homepage-http.conf;
 ```
-
 7. GitLab nginx 재구동
-
 ```
 [root@gitlab conf]# gitlab-ctl nginx restart
 ```
@@ -106,20 +88,15 @@ GitLab 자체를 재구동할경우 nginx.conf 파일이 다시 수정전으로 
 추가로 GitLab 설정파일도 수정을 해야한다.
 
 1. GitLab 설정 파일 수정을 위해 아래 경로로 이동하여 gitlab.rb 파일 수정
-
 ```
 [root@gitlab gitlab]# cd /etc/gitlab
 [root@gitlab gitlab]# vi gitlab.rb
 ```
-
 2. custom_nginx_config의 주석을 풀고 추가한 설정파일을 include해준다.
-
 ```
 nginx['custom_nginx_config'] = "include /var/opt/gitlab/nginx/conf/homepage-http.conf;"
 ```
-
 3. GitLab 재구동
-
 ```
 [root@gitlab conf]# gitlab-ctl restart
 ```
