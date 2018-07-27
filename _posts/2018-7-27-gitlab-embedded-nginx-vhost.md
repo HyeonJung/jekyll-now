@@ -3,8 +3,6 @@ layout: post
 title: GitLab Nginx에 vhost 설정하기
 ---
 
-# GitLab Nginx에 vhost 설정하기
-
 - 작성일 : 2018-07-27 (금)
 - GitLab버전 : GitLab Community Edition 8.17.3 (빨리 업데이트 필요..)
 
