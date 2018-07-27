@@ -67,12 +67,12 @@ server
 [root@gitlab conf]# vi nginx.conf
 ```
 6. 파일 하단에 추가한 설정파일 include (nginx-status.conf 하단에)  
-```
-include /var/opt/gitlab/nginx/conf/gitlab-http.conf;
-include /var/opt/gitlab/nginx/conf/nginx-status.conf;
-
-include /var/opt/gitlab/nginx/conf/homepage-http.conf;
-```
+```  
+include /var/opt/gitlab/nginx/conf/gitlab-http.conf;  
+include /var/opt/gitlab/nginx/conf/nginx-status.conf;  
+  
+include /var/opt/gitlab/nginx/conf/homepage-http.conf;  
+```  
 7. GitLab nginx 재구동
 ```
 [root@gitlab conf]# gitlab-ctl nginx restart
